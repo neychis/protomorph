@@ -5,10 +5,8 @@
     "author": "Gavin King <gavin.king@itslearning.com>",
     "license": "MIT",
     "scripts": {
-        "rdev": "rollup -c -w",
-        "rbuild": "rollup -c",
-        "build": "webpack-cli",
-        "dev": "webpack-cli --watch",
+        "dev": "rollup -c -w",
+        "build": "rollup -c",
         "test": "yarn build && karma start"
     },
     "browserslist": [
