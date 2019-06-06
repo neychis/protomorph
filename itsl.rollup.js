@@ -1,12 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
-const  babel = require('rollup-plugin-babel');
-const  { eslint } = require('rollup-plugin-eslint');
+const babel = require('rollup-plugin-babel');
+const { eslint } = require('rollup-plugin-eslint');
 const resolve = require('rollup-plugin-node-resolve');
-const  scss = require('rollup-plugin-scss');
-const  svelte = require('rollup-plugin-svelte');
-const  { uglify } = require('rollup-plugin-uglify');
+const scss = require('rollup-plugin-scss');
+const svelte = require('rollup-plugin-svelte');
+const { uglify } = require('rollup-plugin-uglify');
 
 /**
  * Returns a Rollup Configuration Object for Svelte files
@@ -18,7 +18,8 @@ const Svelte = (src, dest) => ({
     input: src,
     output: {
         file: dest,
-        format: 'iife'
+        format: 'iife',
+        sourcemap: true,
     },
     treeshake: true,
     plugins: [
@@ -85,13 +86,14 @@ const ItslRollup = ({ destination, files }) =>
         const { name } = path.parse(outFile || inFile);
 
         if (ext !== '.js' && ext !== '.scss') {
-            throw(`Unknown format ${ext}`);
+            throw (`Unknown format ${ext}`);
         }
+
         return ext === '.js'
             ? Svelte(inFile, `${destination}${name}.js`)
             : ext === '.scss'
-            ? Sass(inFile, `${destination}${name}.css`)
-            : false;
+                ? Sass(inFile, `${destination}${name}.css`)
+                : false;
     });
 
 module.exports = {
